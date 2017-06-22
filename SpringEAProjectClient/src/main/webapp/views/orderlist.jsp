@@ -19,23 +19,7 @@
 <body>
 	<jsp:include page="navigation.jsp" />
 	<div class="container">
-		<table class="table table-bordered">
-			<tr>
-				<th>Id</th>
-				<th>Order Date</th>
-				<th>User</th>
-				<th>Total Price</th>
-
-			</tr>
-			<c:forEach var="order" items="${orders}">
-				<tr>
-					<td><c:out value="${order.id}" /></td>
-					<td><c:out value="${order.orderDate}" /></td>
-					<td><c:out value="${order.user.username}" /></td>
-					<td><c:out value="${order.getTotalPrice}" /></td>					
-				</tr>
-			</c:forEach>
-		</table>
+		 	
 	</div>
 </body>
 </html>

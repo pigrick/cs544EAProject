@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
@@ -34,11 +35,13 @@ public class User {
 	@OneToOne(cascade={CascadeType.PERSIST, CascadeType.MERGE})
 	@Valid
 	private Address address;	
-	@OneToMany(mappedBy="user", cascade={CascadeType.PERSIST, CascadeType.MERGE} )
+	@OneToMany(cascade={CascadeType.ALL} )
+	@JoinColumn(name="user_id")
 	private List<CreditCard> creditCards;
 	@OneToOne(cascade=CascadeType.ALL)
 	private ShoppingCart cart;
-	@OneToMany(mappedBy="user")
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+	@JoinColumn(name="user_id")
 	private List<Order> order;
 	
 	
@@ -116,6 +119,10 @@ public class User {
 	public void setCreditCards(List<CreditCard> creditCards) {
 		this.creditCards = creditCards;
 	}
+	
+	public void addCreditCard(CreditCard creditCard){
+		this.creditCards.add(creditCard);
+	}
 
 	public ShoppingCart getCart() {
 		return cart;
@@ -133,6 +140,10 @@ public class User {
 		this.order = order;
 	}
 
+	public void addOrder(Order order){
+		this.order.add(order);
+	}
+	
 	public boolean isEnabled() {
 		return enabled;
 	}

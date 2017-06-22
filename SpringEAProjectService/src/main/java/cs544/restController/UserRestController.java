@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import cs544.domain.CreditCard;
 import cs544.domain.User;
 import cs544.service.UserService;
 
@@ -21,6 +22,7 @@ public class UserRestController {
 	
 	@RequestMapping(value="/all", method=RequestMethod.GET)
 	public List<User> getUsers(){
+		
 		return userService.getUsers();
 	}
 	

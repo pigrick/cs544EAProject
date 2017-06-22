@@ -3,6 +3,7 @@ package cs544.domain;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.metadata.CascadableDescriptor;
 
 @Entity
 @Table(name="OrderT")
@@ -22,14 +24,12 @@ public class Order {
 	private int id;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date orderDate;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.PERSIST)
 	private Address shippingAddress;
-	@OneToOne
+	@OneToOne(cascade=CascadeType.PERSIST)
 	private CreditCard creditCard;
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	private List<Orderline> orderlines;
-	@ManyToOne
-	private User user;
 	
 	public Order(){
 		
@@ -37,26 +37,13 @@ public class Order {
 	
 	
 	
-	public Order(Address shippingAddress, CreditCard creditCard, List<Orderline> orderlines, User user) {
+	public Order(Address shippingAddress, CreditCard creditCard, List<Orderline> orderlines){
 		orderDate = new Date();
 		this.shippingAddress = shippingAddress;
 		this.creditCard = creditCard;
 		this.orderlines = orderlines;
-		this.user = user;
 	}
-
-
-
-	public User getUser() {
-		return user;
-	}
-
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-
+	
 	public int getId() {
 		return id;
 	}

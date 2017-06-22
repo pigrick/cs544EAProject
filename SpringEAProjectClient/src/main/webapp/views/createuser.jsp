@@ -59,7 +59,7 @@
 				<form:input path="address.country" class="form-control" />
 			</div>
 			<div class="form-group">
-				<label>Zipcode: <form:errors path="password" cssClass="alert-danger" /></label>
+				<label>Zipcode: <form:errors path="address.zipcode" cssClass="alert-danger" /></label>
 				<form:input path="address.zipcode" class="form-control" />
 			</div>
 			

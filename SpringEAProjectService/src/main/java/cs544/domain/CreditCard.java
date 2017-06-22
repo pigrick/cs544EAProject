@@ -2,6 +2,7 @@ package cs544.domain;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -12,6 +13,8 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class CreditCard {
 	@Id
@@ -20,17 +23,14 @@ public class CreditCard {
 	@CreditCardNumber
 	private String ccNo;
 	private String name;
-	@Temporal(TemporalType.DATE)
-	private Date expiredDate;
-	@ManyToOne
-	private User user;
-	@OneToOne
+	private String expiredDate;
+	@OneToOne(cascade={CascadeType.ALL})
 	private Address billingAddress;
 	
 	
 	public CreditCard(){}
 	
-	public CreditCard(String ccNo, String name, Date expiredDate, Address billingAddress) {
+	public CreditCard(String ccNo, String name, String expiredDate, Address billingAddress) {
 		super();
 		this.ccNo = ccNo;
 		this.name = name;
@@ -55,18 +55,13 @@ public class CreditCard {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Date getExpiredDate() {
+	public String getExpiredDate() {
 		return expiredDate;
 	}
-	public void setExpiredDate(Date expiredDate) {
+	public void setExpiredDate(String expiredDate) {
 		this.expiredDate = expiredDate;
 	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
+
 	public Address getBillingAddress() {
 		return billingAddress;
 	}

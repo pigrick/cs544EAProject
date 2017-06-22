@@ -51,7 +51,7 @@
 				<td></td>
 			</tr>
 		</table>
-		<form:form action="/user/cart/change" method="POST">
+		<form:form action="/user/checkout" method="GET">
 			<input type="submit" class="btn btn-default" value="Checkout" />
 		</form:form>
 	</div>
