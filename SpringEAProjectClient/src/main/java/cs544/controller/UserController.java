@@ -116,6 +116,7 @@ public class UserController {
 		User u = userRestClient.getUser(((User)session.getAttribute("loggedInUser")).getUsername());
 		u.addCreditCard(creditCard);
 		userRestClient.updateUser(u);
+		u = (User)userRestClient.getUser(u.getUsername());
 		session.setAttribute("loggedInUser", u);
 		return "redirect:/user/profile";
 	}
@@ -128,7 +129,6 @@ public class UserController {
 	@RequestMapping(value="/checkout", method=RequestMethod.POST)
 	public String Checkout(HttpSession session, @Valid Address address, BindingResult result, 
 			@RequestParam("ownaddress") String ownaddress, @RequestParam("cc") int id){
-		System.out.println(address.getStreet() + address.getZipcode());
 		User user = userRestClient.getUser(((User)session.getAttribute("loggedInUser")).getUsername());
 		ShoppingCart cart = (ShoppingCart)session.getAttribute("cart");
 		CreditCard card = null;
