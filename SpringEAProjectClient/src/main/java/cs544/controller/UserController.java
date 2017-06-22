@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,6 +33,10 @@ public class UserController {
 	
 	@Autowired
 	private UserRestClient userRestClient;
+	
+	@Autowired
+	private OrderRestClient orderRestClient;
+	
 
 	@RequestMapping(value="/all", method=RequestMethod.GET)
 	public String getAllUser(Model model){
@@ -50,7 +55,8 @@ public class UserController {
 			return "createuser";
 		}
 		userRestClient.createUser(user);
-		return "redirect:/";
+
+		return "redirect:/login";
 	}
 	
 	@RequestMapping(value="/profile", method=RequestMethod.GET)
@@ -75,7 +81,9 @@ public class UserController {
 		if(result.hasErrors()){
 			return "createuser";
 		}
+		
 		userRestClient.updateUser(user);
+
 		session.setAttribute("loggedInUser", user);
 		return "redirect:/user/profile";
 	}
@@ -120,7 +128,7 @@ public class UserController {
 	@RequestMapping(value="/checkout", method=RequestMethod.POST)
 	public String Checkout(HttpSession session, @Valid Address address, BindingResult result, 
 			@RequestParam("ownaddress") String ownaddress, @RequestParam("cc") int id){
-
+		System.out.println(address.getStreet() + address.getZipcode());
 		User user = userRestClient.getUser(((User)session.getAttribute("loggedInUser")).getUsername());
 		ShoppingCart cart = (ShoppingCart)session.getAttribute("cart");
 		CreditCard card = null;

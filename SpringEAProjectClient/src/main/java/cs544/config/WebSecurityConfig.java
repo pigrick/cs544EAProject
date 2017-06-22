@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -16,11 +17,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Autowired
     private CustomAuthenticationProvider authProvider;
 	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	@Override
 	public void configure(HttpSecurity http) throws Exception {
 		 http
          .authorizeRequests()
-             .antMatchers("/**").permitAll()
+         	.antMatchers("/product/add", "/producut/{id}").hasRole("ADMIN")
+         	.antMatchers("/**").permitAll()
              .and()
              .formLogin().loginPage("/login")
              .and()
@@ -29,8 +34,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("yeerick").password("123asd").roles("ADMIN")
-		.and().withUser("orlando").password("123asd").roles("USER");
+		auth
+		.inMemoryAuthentication().passwordEncoder(bCryptPasswordEncoder)
+		.withUser("yeerick").password("$2a$10$DiaKX27bqzGpDSDQDzONzeR4mp/8QYwtr9l9hXmZ4TM.O3ctTkmB6").roles("ADMIN");
 		auth.authenticationProvider(authProvider);
 		
 	}

@@ -18,22 +18,31 @@
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#">User<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="/user/profile"}">Profile</a></li>
+						<sec:authorize access="hasRole('ROLE_USER')" >
+							<li><a href="/user/profile"}">Profile</a></li>
+						</sec:authorize>
+						<sec:authorize access="hasRole('ADMIN')" >
 						<li><a href="/user/all">List</a></li>
-						<li><a href="#">Page 1-3</a></li>
+						</sec:authorize>
 					</ul></li>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#">Product<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="/product/all">List</a></li>
-						<li><a href="/product/add">Create</a></li>
+						<sec:authorize access="hasRole('ADMIN')" >
+							<li><a href="/product/add">Create</a></li>
+						</sec:authorize>
 					</ul></li>
 				<li class="dropdown"><a class="dropdown-toggle"
 					data-toggle="dropdown" href="#">Order<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="#">Profile</a></li>
-						<li><a href="#">Page 1-2</a></li>
-						<li><a href="#">Page 1-3</a></li>
+						<sec:authorize access="hasRole('ADMIN')" >
+							<li><a href="/order/all">All Orders</a></li>
+						</sec:authorize>
+						<sec:authorize access="hasRole('ROLE_USER')" >
+							<li><a href="/order/myorder">My Orders</a></li>
+						</sec:authorize>
+
 					</ul></li>
 			</ul>
 			<form class="navbar-form navbar-left" action="/product/search">
@@ -49,9 +58,11 @@
 			</form>
 
 			<ul class="nav navbar-nav navbar-right">
+				<sec:authorize access="!hasRole('ROLE_ADMIN')" >
 				<li><a href="/user/cart"><span
 						class="glyphicon glyphicon-shopping-cart"></span>Cart <span
 						class="badge"><c:out value="${cart.getSize()}" /></span></a></li>
+				</sec:authorize>
 				<li><a href="/user/register"><span
 						class="glyphicon glyphicon-user"></span> Register </a></li>
 				<sec:authorize access="isAnonymous()">

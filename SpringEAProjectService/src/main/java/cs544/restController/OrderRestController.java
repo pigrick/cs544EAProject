@@ -24,11 +24,6 @@ public class OrderRestController {
 		return orderService.getOrders();
 	}
 	
-	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public Order getProduct(@PathVariable("id") int id){
-		return orderService.getOrder(id);
-	}
-	
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public void addOrder(@RequestBody Order order){
 		orderService.save(order);
@@ -37,5 +32,10 @@ public class OrderRestController {
 	@RequestMapping(value="update", method=RequestMethod.PUT)
 	public void updateOrder(@RequestBody Order order){
 		orderService.save(order);
+	}
+	
+	@RequestMapping(value="/{username}", method=RequestMethod.GET)
+	public List<Order> getOrdersByUsername(@PathVariable("username")String username){
+		return orderService.getOrdersByUsername(username);
 	}
 }

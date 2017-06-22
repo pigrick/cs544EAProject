@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.client.RestTemplate;
 
@@ -17,6 +18,9 @@ public class UserRestClient {
 	
 	@Autowired
 	private RestTemplate restTemplate;
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	
 	public List<User> getUsers(){
 		return Arrays.asList(restTemplate.getForObject(URL + "/all", User[].class));
@@ -27,10 +31,14 @@ public class UserRestClient {
 	}
 	
 	public void createUser(User user){
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		restTemplate.postForObject(URL + "add", user, User.class);
 	}
 	
 	public void updateUser(User user){
+		if(user.getPassword().length() < 30){
+			user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+		}
 		restTemplate.put(URL + "update", user, User.class);
 	}
 	

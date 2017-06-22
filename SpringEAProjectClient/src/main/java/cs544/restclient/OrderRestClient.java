@@ -36,4 +36,8 @@ public class OrderRestClient {
 	public void removeOrder(Order order){
 		restTemplate.delete(URL + "delete/" + order.getId());
 	}
+	
+	public List<Order> getOrdersByUsername(String name){
+		return Arrays.asList(restTemplate.getForObject(URL + name, Order[].class));
+	}
 }

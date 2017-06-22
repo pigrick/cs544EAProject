@@ -13,7 +13,7 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class CreditCard {
@@ -48,6 +48,11 @@ public class CreditCard {
 	}
 	public void setCcNo(String ccNo) {
 		this.ccNo = ccNo;
+	}
+	
+	public String getLast4ccNO(){
+		
+		return ccNo.substring(ccNo.length() - 4);
 	}
 	public String getName() {
 		return name;

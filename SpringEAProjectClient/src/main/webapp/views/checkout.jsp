@@ -51,7 +51,7 @@
 			<table class="table table-bordered">
 				<tr>
 					<th>Use This</th>
-					<th>Credit Card Number</th>
+					<th>Last 4 Digits of Credit Card Number</th>
 					<th>Card Holder Name</th>
 					<th>Expired Date</th>
 					<th>Billing Street</th>
@@ -64,7 +64,7 @@
 				<c:forEach var="creditcard" items="${loggedInUser.creditCards}">
 					<tr>
 						<td><input type="radio" name="cc" value="${creditcard.id}" /></td>
-						<td><c:out value="${creditcard.ccNo}" /></td>
+						<td><c:out value="${creditcard.getLast4ccNO()}" /></td>
 						<td><c:out value="${creditcard.name}" /></td>
 						<td><c:out value="${creditcard.expiredDate}" /></td>
 						<td><c:out value="${creditcard.billingAddress.street}" /></td>

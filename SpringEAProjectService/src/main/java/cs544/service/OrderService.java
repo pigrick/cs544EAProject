@@ -29,4 +29,8 @@ public class OrderService {
 	public void delete(int id){
 		orderRepository.deleteById(id);
 	}
+	
+	public List<Order> getOrdersByUsername(String name){
+		return orderRepository.findByUserName(name);
+	}
 }

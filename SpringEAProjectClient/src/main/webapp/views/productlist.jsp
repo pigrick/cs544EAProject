@@ -24,21 +24,30 @@
 				<th>Id</th> 
 				<th>Name</th>
 				<th>Description</th>
-				<th>Original Price</th>
+				<sec:authorize access="hasRole('ADMIN')" >
+					<th>Original Price</th>
+				</sec:authorize>
 				<th>Sale Price</th>
 				<th>Weight</th>
-				<th>Add to Cart</th>
-				<th>Edit</th>
-				<th>Delete</th>
+				<sec:authorize access="hasRole('ROLE_USER')" >
+					<th>Add to Cart</th>
+				</sec:authorize>
+				<sec:authorize access="hasRole('ADMIN')" >
+					<th>Edit</th>
+					<th>Delete</th>
+				</sec:authorize>
 			</tr>
 			<c:forEach var="product" items="${products}">
 				<tr>
 					<td><c:out value="${product.id}" /></td>
 					<td><c:out value="${product.name}" /></td>
 					<td><c:out value="${product.description}" /></td>
-					<td><c:out value="${product.oriPrice}" /></td>
+					<sec:authorize access="hasRole('ADMIN')" >
+						<td><c:out value="${product.oriPrice}" /></td>
+					</sec:authorize>
 					<td><c:out value="${product.salePrice}" /></td>
 					<td><c:out value="${product.weight}" /></td>
+					<sec:authorize access="hasRole('ROLE_USER')" >
 					<td>
 						<form:form action="/product/addtocart" method="POST">
 							<input type="hidden" name="id" value="${product.id}" />
@@ -46,6 +55,8 @@
 							<input type="submit" value="Add To Cart" />
 						</form:form>
 					</td>
+					</sec:authorize>
+					<sec:authorize access="hasRole('ADMIN')" >
 					<td>
 						<form action="/product/${product.id}" method="get">
 							<input type="submit" value="Edit" />
@@ -57,6 +68,7 @@
 							<input type="submit" value="Delete" />
 						</form:form>
 					</td>
+					</sec:authorize>
 				</tr>
 			</c:forEach>
 		</table>

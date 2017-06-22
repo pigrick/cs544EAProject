@@ -40,7 +40,7 @@ public class User {
 	private List<CreditCard> creditCards;
 	@OneToOne(cascade=CascadeType.ALL)
 	private ShoppingCart cart;
-	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.MERGE})
+	@OneToMany(cascade={CascadeType.ALL})
 	@JoinColumn(name="user_id")
 	private List<Order> order;
 	
@@ -50,6 +50,7 @@ public class User {
 		creditCards = new ArrayList<CreditCard>();
 		cart = new ShoppingCart();
 		order = new ArrayList<Order>();
+		enabled = true;
 	}
 	
 	public User(String username, String password, String firstName, String lastName, String email, Address address) {

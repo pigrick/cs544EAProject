@@ -16,6 +16,13 @@
 </head>
 <body>
 	<jsp:include page="navigation.jsp" />
-	whatsup!
+	<div class="container">
+  <div class="jumbotron">
+    <h1>Welcome to the RICKONING STORE! </h1>      
+    <p>This is the most awesome online store you will ever visit</p>
+  </div>
+  <p>Customer Guarantee satisfied</p>      
+  <p>Buy on Sunday get 20% off!</p>      
+</div>
 </body>
 </html>

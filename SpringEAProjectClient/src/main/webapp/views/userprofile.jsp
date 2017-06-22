@@ -78,6 +78,9 @@
 			<form action="profile/edit">
 				<input type="submit" class="btn btn-default" value="Edit" />
 			</form>
+			<br/>
+			<br/>
+			<br/>
 			
 			<table class="table table-bordered">
 			<tr>
@@ -93,7 +96,7 @@
 			</tr>
 			<c:forEach var="creditcard" items="${loggedInUser.creditCards}">
 				<tr>
-					<td><c:out value="${creditcard.ccNo}" /></td>
+					<td><c:out value="${creditcard.getLast4ccNO()}" /></td>
 					<td><c:out value="${creditcard.name}" /></td>
 					<td><c:out value="${creditcard.expiredDate}" /></td>
 					<td><c:out value="${creditcard.billingAddress.street}" /></td>
@@ -105,6 +108,7 @@
 			</c:forEach>
 		</table>
 			<h2>Add Credit Card</h2>
+			<br />
 			<form:form action="/user/profile/addcc" modelAttribute="creditCard" method="post">
 			<form:hidden path="id"/>
 			<div class="form-group">
@@ -139,7 +143,7 @@
 				<label>Billing Zipcode: <form:errors path="billingAddress.zipcode" cssClass="alert-danger" /></label>
 				<form:input path="billingAddress.zipcode" class="form-control" />
 			</div>
-			<button type="submit" class="btn btn-default">Submit</button>
+			<button type="submit" class="btn btn-default">Add Credit Card</button>
 			</form:form>
 		</div>
 	</div>
