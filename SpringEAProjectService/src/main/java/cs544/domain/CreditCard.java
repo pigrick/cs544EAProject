@@ -10,8 +10,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.Valid;
 
 import org.hibernate.validator.constraints.CreditCardNumber;
+import org.hibernate.validator.constraints.NotEmpty;
 
 
 
@@ -22,8 +24,11 @@ public class CreditCard {
 	private int id;
 	@CreditCardNumber
 	private String ccNo;
+	@NotEmpty
 	private String name;
+	@NotEmpty
 	private String expiredDate;
+	@Valid
 	@OneToOne(cascade={CascadeType.ALL})
 	private Address billingAddress;
 	

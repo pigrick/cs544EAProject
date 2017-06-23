@@ -3,16 +3,24 @@ package cs544.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Address {
 	@Id
 	@GeneratedValue
 	private int id;
+	@NotEmpty
 	private String street;
+	@NotEmpty
 	private String city;
+	@NotEmpty
 	private String state;
+	@NotEmpty
 	private String country;
+	@Pattern(regexp="\\d{5}")
 	private String zipcode;
 	
 	public Address(){
